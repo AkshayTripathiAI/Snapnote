@@ -1,73 +1,48 @@
-# Snapnote App
+# Snapnote
 
-Snapnote is a simple note-taking app built with React and Material-UI. It allows users to create and manage notes easily.
+A minimal note-taking web app built with React, Vite and Material-UI components.
+
+Built as a practice project while learning React.
 
 ## Features
 
-- Create notes with a title and content.
-- Delete notes individually.
-- User-friendly interface with Material-UI icons.
+- Expanding "Take a note..." input: clicking it reveals a title field and an add button (with a zoom animation).
+- Add notes with a title and content; notes appear as cards.
+- Delete a note with its trash icon.
+- Notes live in React state only, so they are cleared on page reload.
 
-## Getting Started
+## Tech stack
 
-To run the Snapnote app locally, follow these steps:
+- React 18
+- Vite 5
+- Material-UI v4 (`@material-ui/core` Fab/Zoom, `@material-ui/icons`)
 
-1. Clone the repository:
+## Getting started
 
-   ```bash
-   git clone https://github.com/AkshayTripathi0331/Snapnote.git
-   ```
+Prerequisites: Node.js 18+ and npm.
 
-2. Navigate to the project directory:
+```bash
+git clone https://github.com/AkshayTripathiAI/Snapnote.git
+cd Snapnote
+npm install --force
+npm run dev
+```
 
-   ```bash
-   cd snapnote-app
-   ```
+Then open http://localhost:5173.
 
-3. Install dependencies:
+`--force` is needed because Material-UI v4 declares a peer dependency on React 16/17 while this project uses React 18; plain `npm install` fails with an `ERESOLVE` error. With `--force`, npm also installs `@material-ui/core`, which the code imports but `package.json` does not list.
 
-   ```bash
-   npm install
-   ```
+Other scripts: `npm run build`, `npm run preview`, `npm run lint`.
 
-4. Run the app:
+## Project structure
 
-   ```bash
-   npm run dev
-   ```
-
-   
-## Usage
-
-1. Visit the Snapnote app in your browser.
-2. Click on the "Add" button to create a new note.
-3. Fill in the title and content for your note.
-4. Click on the "Add" button to save the note.
-5. Notes will be displayed on the page. Click the trash icon to delete a note.
-
-## Components
-
-- **CreateArea:** Component for creating and adding new notes.
-- **Note:** Component for displaying individual notes.
-- **Header:** Component for the app header with a title and icon.
-- **Footer:** Component for the app footer with copyright information.
-
-## Dependencies
-
-- React
-- Material-UI
-
-## Contributing
-
-Contributions are welcome! If you find any issues or have suggestions for improvements, please open an issue or create a pull request.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-- Icons provided by Material-UI.
-- Created with love by Akshay Tripathi.
-
----
+```
+src/
+├── App.jsx              # Notes state: add/delete
+├── main.jsx             # Entry point
+└── components/
+    ├── Header.jsx
+    ├── CreateArea.jsx   # Expanding note form
+    ├── Note.jsx         # Note card with delete button
+    └── Footer.jsx
+```
