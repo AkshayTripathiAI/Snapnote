@@ -3,11 +3,14 @@
   margin: 0;
   box-sizing: border-box;
 }
+
 html {
-  font-family: 'Tangerine', serif;
+  font-family: "Montserrat", system-ui, sans-serif;
 }
+
 body {
-  background: #eee;
-  background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
-  padding: 0 16px;
+  background-color: #eee;
+  background-image: radial-gradient(#d8d8d8 1px, transparent 1px);
+  background-size: 18px 18px;
+  min-height: 100vh;
 }

@@ -1,67 +1,67 @@
-import React, { useState } from "react";
-import AddIcon from "@material-ui/icons/Add";
-import Fab from "@material-ui/core/Fab";
-import Zoom from "@material-ui/core/Zoom";
+import { useState } from "react";
+import { AddIcon } from "./Icons";
 
-function CreateArea(props) {
+const EMPTY_NOTE = { title: "", content: "" };
+
+function CreateArea({ onAdd }) {
   const [isExpanded, setExpanded] = useState(false);
+  const [note, setNote] = useState(EMPTY_NOTE);
 
-  const [note, setNote] = useState({
-    title: "",
-    content: ""
-  });
+  const canSubmit = note.title.trim() !== "" || note.content.trim() !== "";
 
   function handleChange(event) {
     const { name, value } = event.target;
-
-    setNote(prevNote => {
-      return {
-        ...prevNote,
-        [name]: value
-      };
-    });
+    setNote((prevNote) => ({ ...prevNote, [name]: value }));
   }
 
   function submitNote(event) {
-    props.onAdd(note);
-    setNote({
-      title: "",
-      content: ""
-    });
     event.preventDefault();
+    if (!canSubmit) return;
+    onAdd({ title: note.title.trim(), content: note.content.trim() });
+    setNote(EMPTY_NOTE);
   }
 
-  function expand() {
-    setExpanded(true);
+  function handleKeyDown(event) {
+    // Ctrl/Cmd + Enter adds the note from either field.
+    if (event.key === "Enter" && (event.ctrlKey || event.metaKey)) {
+      submitNote(event);
+    }
   }
 
   return (
-    <div>
-      <form className="create-note">
-        {isExpanded && (
-          <input
-            name="title"
-            onChange={handleChange}
-            value={note.title}
-            placeholder="Title"
-          />
-        )}
-
-        <textarea
-          name="content"
-          onClick={expand}
+    <form className="create-note" onSubmit={submitNote}>
+      {isExpanded && (
+        <input
+          name="title"
           onChange={handleChange}
-          value={note.content}
-          placeholder="Take a note..."
-          rows={isExpanded ? 3 : 1}
+          onKeyDown={handleKeyDown}
+          value={note.title}
+          placeholder="Title"
+          aria-label="Note title"
+          autoFocus
         />
-        <Zoom in={isExpanded}>
-          <Fab onClick={submitNote}>
-            <AddIcon />
-          </Fab>
-        </Zoom>
-      </form>
-    </div>
+      )}
+
+      <textarea
+        name="content"
+        onFocus={() => setExpanded(true)}
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
+        value={note.content}
+        placeholder="Take a note..."
+        aria-label="Note content"
+        rows={isExpanded ? 3 : 1}
+      />
+      <button
+        type="submit"
+        className={`fab${isExpanded ? " fab-visible" : ""}`}
+        disabled={!canSubmit}
+        aria-label="Add note"
+        title="Add note (Ctrl+Enter)"
+      >
+        <AddIcon />
+      </button>
+    </form>
   );
 }
 

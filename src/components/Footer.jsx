@@ -1,10 +1,8 @@
-import React from "react";
-
 function Footer() {
   const year = new Date().getFullYear();
   return (
     <footer>
-      <p>Copyright ⓒ {year}</p>
+      <p>Snapnote &copy; {year} &middot; Notes are stored in this browser only.</p>
     </footer>
   );
 }

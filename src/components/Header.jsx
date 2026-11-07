@@ -1,13 +1,22 @@
-import React from "react";
-import DescriptionIcon from "@material-ui/icons/Description";
+import { NoteIcon } from "./Icons";
 
-function Header() {
+function Header({ query, onQueryChange, count }) {
   return (
     <header>
       <h1>
-        <DescriptionIcon />
-        Snap Note
+        <NoteIcon />
+        Snapnote
       </h1>
+      {count > 0 && (
+        <input
+          className="search"
+          type="search"
+          placeholder="Search notes..."
+          value={query}
+          onChange={(event) => onQueryChange(event.target.value)}
+          aria-label="Search notes"
+        />
+      )}
     </header>
   );
 }
