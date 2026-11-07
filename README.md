@@ -1,5 +1,7 @@
 # Snapnote
 
+**Live demo:** https://akshaytripathiai.github.io/Snapnote/
+
 A minimal note-taking web app built with React and Vite. Jot something down, edit it later, and find it again with search. Notes are saved in your browser.
 
 Built as a practice project while learning React.
